@@ -43,5 +43,14 @@ function checkWin(player){
   return false;
 }
 
+function checkDraw() {
+  for (let i = 0; i < cells.length; i++) {
+    if (cells[i].textContent === "") {
+      return false;
+    }
+  }
+  return true;
+}
+
 
 
