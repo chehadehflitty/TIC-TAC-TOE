@@ -22,7 +22,27 @@ function startGame(){
   if(player_1_name!="" && player_2_name!=""){
     current_player = "X";
     message.textContent = `${player_1_name}'s turn`;
-  } else { message.textContent = 'Enter names for player 1 and player 2'};
+    for (let i = 0; i < cells.length; i++) {
+      cells[i].addEventListener('click', function makeMove() {
+        const cell = cells[i];
+        if (cell.textContent === "" && !game_finished) {
+          cell.textContent = current_player;
+          if (checkWin(current_player)) {
+            const winner_name = current_player === "X" ? player_1_name : player_2_name;
+            current_player === "X" ? score_player_1.textContent=score_first_player+=1 : score_player_2.textContent=score_second_player+=1;
+            message.textContent = `${winner_name} wins!`;
+            game_finished = true;
+          } else if (checkDraw()) {
+              message.textContent = "It's a draw!";
+              game_finished = true;
+            } else {
+                current_player = current_player === "X" ? "O" : "X";
+                message.textContent = current_player === "X" ? `${player_1_name}'s turn` : `${player_2_name}'s turn`;
+              }
+        }
+      });
+    }
+  }else { message.textContent = 'Enter names for player 1 and player 2'};
 }
 
 function checkWin(player){
@@ -40,7 +60,10 @@ function checkWin(player){
   for (let i = 0; i < winning_index_table.length; i++) {
     const [a, b, c] = winning_index_table[i];
     if (cells[a].textContent === player && cells[b].textContent === player && cells[c].textContent === player) {
-        return true;
+      cells[a].classList.add("win");
+      cells[b].classList.add("win");
+      cells[c].classList.add("win"); 
+      return true;
     };
   };
   return false;
@@ -77,31 +100,11 @@ function restartGame(){
   game_finished=false
   for (let i = 0; i < cells.length; i++){
     cells[i].textContent=""
+    cells[i].classList.remove("win")
   }
 }
 
 start_btn.addEventListener('click', startGame)
-
-for (let i = 0; i < cells.length; i++) {
-  cells[i].addEventListener('click', function makeMove() {
-    const cell = cells[i];
-    if (cell.textContent === "" && !game_finished) {
-      cell.textContent = current_player;
-      if (checkWin(current_player)) {
-        const winner_name = current_player === "X" ? player_1_name : player_2_name;
-        current_player === "X" ? score_player_1.textContent=score_first_player+=1 : score_player_2.textContent=score_second_player+=1;
-        message.textContent = `${winner_name} wins!`;
-        game_finished = true;
-      } else if (checkDraw()) {
-          message.textContent = "It's a draw!";
-          game_finished = true;
-        } else {
-            current_player = current_player === "X" ? "O" : "X";
-            message.textContent = current_player === "X" ? `${player_1_name}'s turn` : `${player_2_name}'s turn`;
-          }
-    }
-  });
-}
 
 restart_btn.addEventListener('click', restartGame)
 
