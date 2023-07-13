@@ -1,6 +1,8 @@
 const board = document.querySelector(".container");
 let cells = document.querySelectorAll(".cell");
 let message = document.querySelector(".msg");
+let player_1_name = "";
+let player_2_name = "";
 let score_player_1 = document.querySelector(".score1");
 let score_player_2 = document.querySelector(".score2");
 const start_btn = document.querySelector(".start-btn");
@@ -9,9 +11,8 @@ let player_1_input = document.getElementById("player1");
 let player_2_input = document.getElementById("player2");
 let btn0 =document.getElementById('0');
 let current_player = "";
-let player_1_name = "";
-let player_2_name = "";
-let score = 0;
+let score_first_player = 0;
+let score_second_player = 0;
 let game_finished = false;
 
 function startGame(){
@@ -72,6 +73,13 @@ function makeMove(i) {
   }
 }
 
+function restartGame(){
+  game_finished=false
+  for (let i = 0; i < cells.length; i++){
+    cells[i].textContent=""
+  }
+}
+
 start_btn.addEventListener('click', startGame)
 
 for (let i = 0; i < cells.length; i++) {
@@ -81,7 +89,7 @@ for (let i = 0; i < cells.length; i++) {
       cell.textContent = current_player;
       if (checkWin(current_player)) {
         const winner_name = current_player === "X" ? player_1_name : player_2_name;
-        current_player === "X" ? score_player_1.textContent=score+=1 : score_player_2.textContent=score+=1;
+        current_player === "X" ? score_player_1.textContent=score_first_player+=1 : score_player_2.textContent=score_second_player+=1;
         message.textContent = `${winner_name} wins!`;
         game_finished = true;
       } else if (checkDraw()) {
@@ -94,5 +102,7 @@ for (let i = 0; i < cells.length; i++) {
     }
   });
 }
+
+restart_btn.addEventListener('click', restartGame)
 
 
