@@ -1,0 +1,40 @@
+body{
+  background: linear-gradient(135deg, black, white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.board{
+  display: flex;
+  flex-wrap: wrap;
+  width: 70vmin;
+  height: 70vmin;
+  gap: 2px;
+}
+
+.cell{
+  background: linear-gradient(50deg, black, white);
+  height: 22vmin;
+  width: 22vmin;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  font-size: 40px;
+  color: black;
+}
+
+.start-btn, .restart-btn{
+  padding: 10px;
+  background: linear-gradient(50deg, white, black );
+  font-weight: bold;
+}
+
